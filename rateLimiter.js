@@ -33,6 +33,7 @@ rateLimiter.limit = function (req, res, next) {
                 arr.push(counterId);
                 arr.push(1);
                 client.mset(arr, function(err) {
+                    err = new Error("manually generated error");
                     if (err) {
                         next(err);
                     } else {
@@ -43,6 +44,7 @@ rateLimiter.limit = function (req, res, next) {
                 client.get(counterId, function(err, count) {
                     count = parseInt(count);
                     if (err) {
+                        err = new Error("manually generated error");
                         next(err);
                     } else {
                         console.log("count " + count);
